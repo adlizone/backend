@@ -10,32 +10,29 @@ from .models import TourPackage, Itinerary, Booking, Destination, Category, Filt
 class DestinationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Destination
-        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
 
 class FilterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Filter
-        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
 
 class ItinerarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Itinerary
-        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
 
 class TourPackageSerializer(serializers.ModelSerializer):
-    destinations = DestinationSerializer(many=True, read_only=True)
-    categories = CategorySerializer(many=True, read_only=True)
-    filters = FilterSerializer(many=True, read_only=True)
-    itineraries = ItinerarySerializer(many=True, read_only=True)
 
     class Meta:
         model = TourPackage
-        fields = '__all__'
+        exclude = ['categories', 'filters', 'destinations',
+            'created_at', 'updated_at']
 
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
