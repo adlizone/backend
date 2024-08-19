@@ -1,14 +1,16 @@
 """
 Pending:
     Documentation
+        ..add docstrings to each model.
     Validation
-"""
+"""	
 
 from django.db import models
 
 class Destination(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='destination_images/', null=True,blank=True)    
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -18,6 +20,9 @@ class Destination(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -40,6 +45,7 @@ class TourPackage(models.Model):
     destinations = models.ManyToManyField(Destination,blank=True)
     categories = models.ManyToManyField(Category,blank=True)
     filters = models.ManyToManyField(Filter,blank=True)
+    image = models.ImageField(upload_to='tour_images/', null=True,blank=True)    
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -61,12 +67,14 @@ class Itinerary(models.Model):
 
 class Booking(models.Model):
     customer_name = models.CharField(max_length=255)
-    customer_email = models.EmailField()
-    customer_phone = models.CharField(max_length=15)
+    customer_email = models.EmailField(blank=True)
+    customer_phone = models.CharField(max_length=10)
+    adults = models.IntegerField(default=0)
+    children = models.IntegerField(default=0)
+    arrival_date = models.DateTimeField()
     tour_package = models.ForeignKey(TourPackage, related_name='bookings', on_delete=models.CASCADE)
     booking_date = models.DateTimeField(auto_now_add=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
