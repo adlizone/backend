@@ -14,6 +14,14 @@ class TourPackageList(generics.ListAPIView):
     queryset = TourPackage.objects.all()
     serializer_class = TourPackageSerializer
 
+class TourPackageInstance(generics.RetrieveAPIView):
+    """
+    Return a single tour package instance.
+    """
+    lookup_url_kwarg = "tour_id"
+    queryset = TourPackage.objects.all()
+    serializer_class = TourPackageSerializer
+
 class ItineraryList(generics.ListAPIView):
     """
     List all itineraries for a given instance.
