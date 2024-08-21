@@ -1,15 +1,23 @@
 """
 Pending:
     Documentation
-        ..add docstrings to each model.
-    Validation
+        ..add docstrings to each model
 """	
 
 from django.db import models
+from django.core.validators import ( MaxValueValidator,
+    MinValueValidator, MaxLengthValidator, MinLengthValidator,
+    DecimalValidator )
 
 class Destination(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+    name = models.CharField(
+        max_length=255,
+        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")],
+    )
+    description = models.TextField(
+        blank=True, 
+        validators=[MaxLengthValidator(300, "Too long description")]
+    )
     image = models.ImageField(upload_to='destination_images/', null=True,blank=True)    
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -19,7 +27,10 @@ class Destination(models.Model):
         return self.name
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255,
+        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")]
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -28,7 +39,10 @@ class Category(models.Model):
         return self.name
 
 class Filter(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255,
+        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")],
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -37,10 +51,30 @@ class Filter(models.Model):
         return self.name
 
 class TourPackage(models.Model):
-    name = models.CharField(max_length=255,blank=True,null=True)
-    description = models.TextField(blank=True,null=True)
-    duration = models.IntegerField(help_text="Duration in days",blank=True,null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2,blank=True,null=True)
+    name = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")]
+    )
+    description = models.TextField(
+        blank=True,
+        null=True,
+        validators=[MaxLengthValidator(500, "Too long description")],
+    )
+    duration = models.IntegerField(
+        help_text="Duration in days",
+        blank=True,
+        null=True,
+        validators=[MaxValueValidator(30,"Range is 1-30"), MinValueValidator(1,"Range is 1-30")]
+    )
+    price = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2,
+        blank=True,
+        null=True,
+        validators=[DecimalValidator(10,2)],
+    )
     availability = models.BooleanField(default=True,blank=True)
     destinations = models.ManyToManyField(Destination,blank=True)
     categories = models.ManyToManyField(Category,blank=True)
@@ -54,9 +88,16 @@ class TourPackage(models.Model):
         return self.name
 
 class Itinerary(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    day_number = models.IntegerField()
+    title = models.CharField(
+        max_length=255,
+        validators=[MinLengthValidator(2,"Title can not be shorter than two letters")],
+    )
+    description = models.TextField(
+        validators=[MaxLengthValidator(1000, "Too long description")]
+    )
+    day_number = models.IntegerField(
+        validators=[MaxValueValidator(30,"Range is 1-30"), MinValueValidator(1,"Range is 1-30")]
+    )
     tour_package = models.ForeignKey(TourPackage, related_name='itineraries', on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -66,7 +107,10 @@ class Itinerary(models.Model):
         return f"{self.title} - Day {self.day_number}"
 
 class Booking(models.Model):
-    customer_name = models.CharField(max_length=255)
+    customer_name = models.CharField(
+        max_length=255,
+        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")],
+    )
     customer_email = models.EmailField(blank=True)
     customer_phone = models.CharField(max_length=10)
     adults = models.IntegerField(default=0)

@@ -1,12 +1,15 @@
 """
 Pending:
     Documentation
-    Validation
 """
 
 from rest_framework import serializers
 from .models import TourPackage, Itinerary, Booking, Destination, Category, Filter
-from util.validators import phone_number_validator, person_count_validator
+from util.validators import ( 
+        phone_number_validator, 
+        person_count_validator,
+        arrival_date_validator,
+    )
 
 class DestinationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,8 +42,10 @@ class BookingSerializer(serializers.ModelSerializer):
     customer_phone = serializers.CharField(validators=[phone_number_validator])
     adults = serializers.IntegerField(validators=[person_count_validator])
     children = serializers.IntegerField(validators=[person_count_validator])
+    arrival_date = serializers.DateTimeField(validators=[arrival_date_validator])
     class Meta:
         model = Booking
         fields = ['customer_name', 'customer_email', 'customer_phone', 
             'adults', 'children', 'arrival_date', 'tour_package',
             'booking_date']
+       
