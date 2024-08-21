@@ -33,3 +33,17 @@ TOURS API USAGE
         6.Get Filters for a Specific Tour
 	    Endpoint: /api/tours/id/filters/
             Method: GET
+   
+        7.Create a booking for a tour package
+            Endpoint: /api/tours/bookings
+            Method: POST
+
+            Fields:
+                customer_name
+                customer_email
+                customer_phone
+                adults
+                children
+                arrival_date
+                tour_package
+                booking_date

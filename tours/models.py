@@ -71,7 +71,7 @@ class Booking(models.Model):
     customer_phone = models.CharField(max_length=10)
     adults = models.IntegerField(default=0)
     children = models.IntegerField(default=0)
-    arrival_date = models.DateTimeField()
+    arrival_date = models.DateTimeField(blank=True,null=True)
     tour_package = models.ForeignKey(TourPackage, related_name='bookings', on_delete=models.CASCADE)
     booking_date = models.DateTimeField(auto_now_add=True)
 
