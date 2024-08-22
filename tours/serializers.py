@@ -10,6 +10,10 @@ from util.validators import (
         person_count_validator,
         arrival_date_validator,
     )
+from django.core.validators import (
+        MinValueValidator,
+        MaxValueValidator,
+    )
 
 class DestinationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,10 +43,19 @@ class TourPackageSerializer(serializers.ModelSerializer):
             'created_at', 'updated_at']
 
 class BookingSerializer(serializers.ModelSerializer):
-    customer_phone = serializers.CharField(validators=[phone_number_validator])
-    adults = serializers.IntegerField(validators=[person_count_validator])
-    children = serializers.IntegerField(validators=[person_count_validator])
-    arrival_date = serializers.DateTimeField(validators=[arrival_date_validator])
+    message_adult = "Enter a value in the range 1-30"
+    message_child = "Enter a value in the range 0-30"
+
+    customer_phone = serializers.CharField(
+        validators=[phone_number_validator]
+    )
+    adults = serializers.IntegerField(
+        validators=[MinValueValidator(1,message_adult),MaxValueValidator(30,message_adult)]
+    )
+    children = serializers.IntegerField(
+        validators=[MinValueValidator(0,message_child),MaxValueValidator(30,message_child)]
+    )
+    arrival_date = serializers.DateField(validators=[arrival_date_validator])
     class Meta:
         model = Booking
         fields = ['customer_name', 'customer_email', 'customer_phone', 

@@ -9,6 +9,11 @@ from django.core.validators import ( MaxValueValidator,
     MinValueValidator, MaxLengthValidator, MinLengthValidator,
     DecimalValidator )
 
+from util.validators import (
+        arrival_date_validator,
+        phone_number_validator,
+    )
+
 class Destination(models.Model):
     name = models.CharField(
         max_length=255,
@@ -107,15 +112,31 @@ class Itinerary(models.Model):
         return f"{self.title} - Day {self.day_number}"
 
 class Booking(models.Model):
+    message_adult = "Enter a value in the range 1-30"
+    message_child = "Enter a value in the range 0-30"
+
     customer_name = models.CharField(
         max_length=255,
         validators=[MinLengthValidator(2,"Name can not be shorter than two letters")],
     )
     customer_email = models.EmailField(blank=True)
-    customer_phone = models.CharField(max_length=10)
-    adults = models.IntegerField(default=0)
-    children = models.IntegerField(default=0)
-    arrival_date = models.DateTimeField(blank=True,null=True)
+    customer_phone = models.CharField(
+        max_length=10,
+        validators = [phone_number_validator],
+    )
+    adults = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(1,message_adult),MaxValueValidator(30,message_adult)],
+    )
+    children = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0,message_child),MaxValueValidator(30,message_child)],
+    )
+    arrival_date = models.DateField(
+        blank=True,
+        null=True,
+        validators = [arrival_date_validator],
+    )
     tour_package = models.ForeignKey(TourPackage, related_name='bookings', on_delete=models.CASCADE)
     booking_date = models.DateTimeField(auto_now_add=True)
 
