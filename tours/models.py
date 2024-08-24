@@ -132,7 +132,7 @@ class Booking(models.Model):
         default=0,
         validators=[MinValueValidator(0,message_child),MaxValueValidator(30,message_child)],
     )
-    arrival_date = models.DateField(
+    arrival_date = models.DateTimeField(
         blank=True,
         null=True,
         validators = [arrival_date_validator],

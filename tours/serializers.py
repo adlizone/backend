@@ -55,7 +55,9 @@ class BookingSerializer(serializers.ModelSerializer):
     children = serializers.IntegerField(
         validators=[MinValueValidator(0,message_child),MaxValueValidator(30,message_child)]
     )
-    arrival_date = serializers.DateField(validators=[arrival_date_validator])
+    arrival_date = serializers.DateTimeField(
+        validators=[arrival_date_validator]
+    )
     class Meta:
         model = Booking
         fields = ['customer_name', 'customer_email', 'customer_phone', 

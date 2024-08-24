@@ -1,6 +1,6 @@
 from rest_framework import serializers
 import re
-from datetime import date
+from datetime import datetime
 
 def phone_number_validator(value):
     # Regex pattern to allow only 10 digits, no leading '+', no spaces or dashes
@@ -15,6 +15,6 @@ def person_count_validator(value):
     return value
 
 def arrival_date_validator(value):
-    if value < date.today():
+    if value < datetime.now():
         raise serializers.ValidationError("Arrival date cannot be in the past.")
     return value	
