@@ -136,6 +136,7 @@ class Booking(models.Model):
         blank=True,
         null=True,
         validators = [arrival_date_validator],
+        auto_now=True,
     )
     tour_package = models.ForeignKey(TourPackage, related_name='bookings', on_delete=models.CASCADE)
     booking_date = models.DateTimeField(auto_now_add=True)
