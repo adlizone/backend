@@ -47,3 +47,7 @@ TOURS API USAGE
                 arrival_date
                 tour_package
                 booking_date
+
+        8.Search Tour package for a given category
+             Endpoint: /api/tours/search/id
+             Method: GET

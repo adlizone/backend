@@ -65,3 +65,13 @@ class FilterList(generics.ListAPIView):
 class BookingCreate(generics.CreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
+
+class TourSearch(generics.ListAPIView):
+    """
+    List all tour packages for a given category.
+    """
+    serializer_class = TourPackageSerializer
+
+    def get_queryset(self):
+        category_id = self.kwargs["category_id"]
+        return Category.objects.get(id=category_id).tourpackage_set.all()
