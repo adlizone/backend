@@ -51,3 +51,7 @@ TOURS API USAGE
         8.Search Tour package for a given category
              Endpoint: /api/tours/search/id
              Method: GET
+
+        9.List of all available categories.
+            Endpoint: /api/tours/categories
+            Method: GET

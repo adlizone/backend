@@ -75,3 +75,10 @@ class TourSearch(generics.ListAPIView):
     def get_queryset(self):
         category_id = self.kwargs["category_id"]
         return Category.objects.get(id=category_id).tourpackage_set.all()
+
+class CategoriesAll(generics.ListAPIView):
+    """
+    List all available categories.
+    """
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()

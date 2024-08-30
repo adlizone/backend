@@ -10,6 +10,7 @@ urlpatterns = [
     path('<int:tour_id>/destinations/', views.DestinationList.as_view(), name='destination-list'),
     path('<int:tour_id>/filters/', views.FilterList.as_view(), name="filter-list"),
     path('bookings/', views.BookingCreate.as_view(), name='bookings'),
+    path('categories/', views.CategoriesAll.as_view(), name='categories-all'),
     path('search/<int:category_id>/', views.TourSearch.as_view(), name='tour-search'),
 ]
 
