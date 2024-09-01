@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import path, re_path
 from tours import views
 from rest_framework.urlpatterns import format_suffix_patterns
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', views.TourPackageList.as_view(), name='tour-list'),
@@ -12,6 +13,7 @@ urlpatterns = [
     path('bookings/', views.BookingCreate.as_view(), name='bookings'),
     path('categories/', views.CategoriesAll.as_view(), name='categories-all'),
     path('search/<int:category_id>/', views.TourSearch.as_view(), name='tour-search'),
+    re_path(r'^.*$', TemplateView.as_view(template_name="index.html"),name="all-urls"),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
