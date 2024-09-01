@@ -9,15 +9,17 @@ from django.core.validators import ( MaxValueValidator,
     MinValueValidator, MaxLengthValidator, MinLengthValidator,
     DecimalValidator )
 
-from util.validators import (
+from util.model_validators import (
         arrival_date_validator,
         phone_number_validator,
+        name_validator_list,
+        #min_words_validator,
     )
 
 class Destination(models.Model):
     name = models.CharField(
         max_length=255,
-        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")],
+        validators=name_validator_list,
     )
     description = models.TextField(
         blank=True, 
@@ -34,7 +36,7 @@ class Destination(models.Model):
 class Category(models.Model):
     name = models.CharField(
         max_length=255,
-        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")]
+        validators=name_validator_list
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -46,7 +48,7 @@ class Category(models.Model):
 class Filter(models.Model):
     name = models.CharField(
         max_length=255,
-        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")],
+        validators=name_validator_list,
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -60,7 +62,7 @@ class TourPackage(models.Model):
         max_length=255,
         blank=True,
         null=True,
-        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")]
+        validators=name_validator_list
     )
     description = models.TextField(
         blank=True,
@@ -117,7 +119,7 @@ class Booking(models.Model):
 
     customer_name = models.CharField(
         max_length=255,
-        validators=[MinLengthValidator(2,"Name can not be shorter than two letters")],
+        validators=name_validator_list,
     )
     customer_email = models.EmailField(blank=True)
     customer_phone = models.CharField(
