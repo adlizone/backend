@@ -55,3 +55,23 @@ TOURS API USAGE
         9.List of all available categories.
             Endpoint: /api/tours/categories
             Method: GET
+
+USERS API USAGE
+
+	1.api/users/regisgration/ (POST)
+             phone_number
+             password
+             repeat_password
+
+        2.api/users/regisgration/ (POST)
+             phone_number
+             password
+
+	3.api/users/user/ (GET, PUT, PATCH)
+             phone_number
+
+        4.api/users/token/verify/ (POST)
+             token
+
+        5.api/userstoken/refresh/ (POST)
+             refresh
