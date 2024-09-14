@@ -63,7 +63,7 @@ USERS API USAGE
              password
              repeat_password
 
-        2.api/users/regisgration/ (POST)
+        2.api/users/registration/ (POST)
              phone_number
              password
 
@@ -75,3 +75,5 @@ USERS API USAGE
 
         5.api/userstoken/refresh/ (POST)
              refresh
+
+        
