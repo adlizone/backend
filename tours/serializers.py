@@ -53,6 +53,7 @@ class BookingSerializer(serializers.ModelSerializer):
         validators=[MinValueValidator(1,message_adult),MaxValueValidator(30,message_adult)]
     )
     children = serializers.IntegerField(
+        default=0,
         validators=[MinValueValidator(0,message_child),MaxValueValidator(30,message_child)]
     )
     
