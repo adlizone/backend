@@ -58,12 +58,12 @@ TOURS API USAGE
 
 USERS API USAGE
 
-	1.api/users/regisgration/ (POST)
+	1.api/users/registration/ (POST)
              phone_number
              password
              repeat_password
 
-        2.api/users/registration/ (POST)
+        2.api/users/login/ (POST)
              phone_number
              password
 
@@ -73,7 +73,10 @@ USERS API USAGE
         4.api/users/token/verify/ (POST)
              token
 
-        5.api/userstoken/refresh/ (POST)
+        5.api/users/token/refresh/ (POST)
              refresh
+
+        6.api/users/profile (GET, PUT)
+             token 
 
         
