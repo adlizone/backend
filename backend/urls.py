@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/tours/', include('tours.urls')),
     path('api/users/', include('users.urls')),
+    path('api/bookings/', include('bookings.urls')),
     re_path(r'^.*$', TemplateView.as_view(template_name="index.html"),name="all-urls"),
 ]
 

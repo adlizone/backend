@@ -1,8 +1,7 @@
 from django.contrib import admin
 from .models import ( TourPackage, Destination, Category,
-                      Filter, Itinerary, Booking)
+                      Filter, Itinerary)
 
-admin.site.register(Booking)
 admin.site.register(TourPackage)
 admin.site.register(Destination)
 admin.site.register(Category)

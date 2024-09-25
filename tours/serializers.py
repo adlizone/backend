@@ -4,7 +4,7 @@ Pending:
 """
 
 from rest_framework import serializers
-from .models import TourPackage, Itinerary, Booking, Destination, Category, Filter
+from .models import TourPackage, Itinerary, Destination, Category, Filter
 from util.api_validators import ( 
         phone_number_validator, 
         person_count_validator,
@@ -40,30 +40,4 @@ class TourPackageSerializer(serializers.ModelSerializer):
     class Meta:
         model = TourPackage
         exclude = ['categories', 'filters', 'destinations',
-            'created_at', 'updated_at']
-
-class BookingSerializer(serializers.ModelSerializer):
-    message_adult = "Enter a value in the range 1-30"
-    message_child = "Enter a value in the range 0-30"
-
-    customer_phone = serializers.CharField(
-        validators=[phone_number_validator]
-    )
-    adults = serializers.IntegerField(
-        validators=[MinValueValidator(1,message_adult),MaxValueValidator(30,message_adult)]
-    )
-    children = serializers.IntegerField(
-        default=0,
-        validators=[MinValueValidator(0,message_child),MaxValueValidator(30,message_child)]
-    )
-    
-    arrival_date = serializers.DateField(
-        validators=[arrival_date_validator]
-    )
-    
-    class Meta:
-        model = Booking
-        fields = ['customer_name', 'customer_email', 'customer_phone', 
-                'adults', 'children', 'tour_package', 'arrival_date',
-            ]
-       
+            'created_at', 'updated_at']       

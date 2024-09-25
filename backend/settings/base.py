@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     "users",
     "tours",
+    "bookings",
 ]
 
 SITE_ID = 1
@@ -137,3 +138,13 @@ REST_AUTH = {
     'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
     'LOGIN_SERIALIZER': 'users.serializers.CustomLoginSerializer',
 }
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=25),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+RAZORPAY_KEY_ID="rzp_test_A77qv0RolXDLjE"
+RAZORPAY_SECRET_KEY="NioyBvmeMUJ4sN8b2y5X7oos"

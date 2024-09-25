@@ -112,38 +112,3 @@ class Itinerary(models.Model):
 
     def __str__(self):
         return f"{self.title} - Day {self.day_number}"
-
-class Booking(models.Model):
-    message_adult = "Enter a value in the range 1-30"
-    message_child = "Enter a value in the range 0-30"
-
-    customer_name = models.CharField(
-        max_length=255,
-        validators=name_validator_list,
-    )
-    customer_email = models.EmailField(blank=True)
-    customer_phone = models.CharField(
-        max_length=10,
-        validators = [phone_number_validator],
-    )
-    adults = models.IntegerField(
-        default=0,
-        validators=[MinValueValidator(1,message_adult),MaxValueValidator(30,message_adult)],
-    )
-    children = models.IntegerField(
-        default=0,
-        validators=[MinValueValidator(0,message_child),MaxValueValidator(30,message_child)],
-    )
-    arrival_date = models.DateField(
-        blank=True,
-        null=True,
-        validators = [arrival_date_validator],
-        auto_now=True,
-    )
-    tour_package = models.ForeignKey(TourPackage, related_name='bookings', on_delete=models.CASCADE)
-    booking_date = models.DateTimeField(auto_now_add=True)
-
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"Booking by {self.customer_name} for {self.tour_package.name}"

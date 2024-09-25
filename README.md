@@ -79,4 +79,17 @@ USERS API USAGE
         6.api/users/profile (GET, PUT)
              token 
 
-        
+BOOKINGS API USAGE
+
+       1.api/bookings/create (POST)
+	    Fields:
+                adults
+                children
+                arrival_date
+                tour_package
+
+       2.api/bookings/payment-success (PUT)
+             Fields:
+                 order_id
+                 amount
+                 status                   
